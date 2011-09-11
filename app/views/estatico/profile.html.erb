@@ -1,2 +1,4 @@
-<h1>Welcome <%=current_user.email%>!</h1>
+<h1>Welcome <%=current_user.name%>!</h1>
+
+<%= link_to "Editar", edit_registration_path(current_user)%>
 

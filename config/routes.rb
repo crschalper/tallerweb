@@ -1,8 +1,11 @@
 Webapp::Application.routes.draw do
   devise_for :users
+  resources :users
 
   get "estatico/index"
   match 'profile' => 'estatico#profile'
+  match 'user_list' => 'estatico#user_list'
+  match '/user_show/' => 'estatico#user_show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

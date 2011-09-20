@@ -1,0 +1,23 @@
+Changelog
+
+--------------------------------------
+20.9.2011
+Agregado facultades para administradores
+- Ver, editar y eliminar usuarios.
+
+--------------------------------------
+14.9.2011
+Agregado la posibilidad de login en todos los sitios
+
+
+--------------------------------------
+12.9.2011
+Agregando el Rol a cada usuario
+
+
+--------------------------------------
+11.9.2011
+
+Agregando username, nombre y apellido
+
+--------------------------------------

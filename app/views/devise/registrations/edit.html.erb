@@ -21,14 +21,15 @@
   <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
   <%= f.password_field :current_password %></div>
   
- <div><%= f.label :role %><br />
+  <%if current_user.role=="admin"%>
+  <div><%= f.label :role %><br />
   <%= f.radio_button :role, :admin%><%= f.label :administrador %>
   <%= f.radio_button :role, :teacher%><%= f.label :profesor %>
   <%= f.radio_button :role, :student%><%= f.label :alumno %>
   </div>
+  <%end%>
   
-
-  <div><%= f.submit "Update" %></div>
+<div><%= f.submit "Update" %></div>
 <% end %>
 
 <h3>Cancel my account</h3>

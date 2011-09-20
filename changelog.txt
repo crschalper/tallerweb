@@ -1,4 +1,7 @@
 Changelog
+--------------------------------------
+20.9.2011
+Agregado el ordenar las columnas de los usuarios.
 
 --------------------------------------
 20.9.2011

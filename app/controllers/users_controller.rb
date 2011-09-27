@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-	before_filter :authenticate_user!
-	helper_method :sort_column, :sort_direction
   # GET /users
   # GET /users.json
+  before_filter :authenticate_user!
+  helper_method :sort_column, :sort_direction
   def index
     @users = User.order(sort_column + " " + sort_direction)
     respond_to do |format|
@@ -36,11 +36,6 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-    
-     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @user }
-    end
   end
 
   # POST /users
@@ -86,14 +81,11 @@ class UsersController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-   
-  def sort_column
+   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
   
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
-  
 end

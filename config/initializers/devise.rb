@@ -69,7 +69,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "9d9a37f48b94e1ff6ba05ffab5dc099a294285761bf4f81701ccbc423be2b41fac1ffb73fbf94d3df4c98aa68eeaf2a18816e13e3f889842a019cb0c58313ea8"
+  # config.pepper = "60d41f89829dac094954b3ada1b8c1fdbffc59e22e318f946ba26d9eb8f58189c042d47d3dbb313efe04cf250635836b832b10142a3a1fb8dc6f16b66e9ba4c5"
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
@@ -119,24 +119,24 @@ Devise.setup do |config|
   # Defines which strategy will be used to lock an account.
   # :failed_attempts = Locks an account after a number of failed attempts to sign in.
   # :none            = No lock strategy. You should handle locking by yourself.
-   config.lock_strategy = :failed_attempts
+  # config.lock_strategy = :failed_attempts
 
   # Defines which key will be used when locking and unlocking an account
-   config.unlock_keys = [ :email ]
+  # config.unlock_keys = [ :email ]
 
   # Defines which strategy will be used to unlock an account.
   # :email = Sends an unlock link to the user email
   # :time  = Re-enables login after a certain amount of time (see :unlock_in below)
   # :both  = Enables both strategies
   # :none  = No unlock strategy. You should handle unlocking by yourself.
-   config.unlock_strategy = :both
+  # config.unlock_strategy = :both
 
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
-   config.maximum_attempts = 11
+  # config.maximum_attempts = 20
 
   # Time interval to unlock the account if :time is enabled as unlock_strategy.
-   config.unlock_in = 1.hour
+  # config.unlock_in = 1.hour
 
   # ==> Configuration for :recoverable
   #

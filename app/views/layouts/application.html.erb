@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Webapp</title>
+  <title>Tallerweb</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <meta name="version" ver=0.4>
+   <meta name="version" ver=0.5>
 </head>
 <body>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <div id="user_nav">
   <% if user_signed_in? %>
-    Logueado como <%= current_user.name %> <%= current_user.lastname %>. No eres tu?
-    <%= link_to "Salir", destroy_user_session_path, :method => :delete %> </br>
-    <%= link_to "Mi Perfil", profile_path%>
-    <%=link_to "Inicio", root_path%>
+    Ingresado como <b><%= current_user.name %> <%= current_user.lastname %></b> . No eres tu? 
+    <%= link_to "Salir", destroy_user_session_path, :method => :delete %>
+    </br>
+    <%=link_to "Perfil", user_path(current_user)%> | 
+    <%=link_to "Inicio", root_path%> | 
+    <%if current_user.admin?%><%= link_to "Usuarios", users_path%><%end%>
   <% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+    <%= link_to "Inscribete!", new_user_registration_path %> o <%= link_to "Entra", new_user_session_path %>
   <% end %>
 </div>
-
+<div id="login">
 <% if !user_signed_in?%>
 <div id="login">
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -31,13 +33,13 @@
   <%= f.password_field :password %></div>
 
   <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <div><%= f.check_box :remember_me %> <%= f.label "Recordarme" %></div>
   <% end -%>
 
-  <div><%= f.submit "Sign in" %></div>
+  <div><%= f.submit "Entrar" %></div>
 <% end %>
-</div>
 <%end%>
+</div>
 
 <%= yield %>
 

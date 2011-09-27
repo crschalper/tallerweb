@@ -1,8 +1,0 @@
-<h1>Bienvenido <%=current_user.name%>!</h1>
-
-<%= link_to "Editar Datos", edit_registration_path(current_user)%>
-
-<%if current_user.role == "admin"%>
-<%= link_to "Listar Usuarios", users_path%>
-<%end%>
-

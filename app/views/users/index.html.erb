@@ -1,31 +1,43 @@
-<h1>Usuarios Registrados </h1>
+<%if current_user.admin?%>
+<h1>Usuarios Registrados</h1>
 
 <table>
   <tr>
+    <th><%=sortable "Username" %></th>
     <th><%=sortable "name" %></th>
-    <th><%=sortable "lastname" %></th>
-    <th><%=sortable "username" %></th>
-    <th><%=sortable "email" %></th>
+      <th><%=sortable "lastname" %></th>
+    <th><%=sortable "rut"%></th>
     <th><%=sortable "role"%></th>
     <th></th>
     <th></th>
     <th></th>
-  </tr>
+</tr>
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= user.username %></td>
     <td><%= user.name %></td>
     <td><%= user.lastname %></td>
-    <td><%= user.username %></td>
-    <td><%= user.email %></td>
-    <td><%= user.role %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= user.rut %></td>
+    <td><%if user.admin? %>
+    Administrador
+    <%elsif user.teacher?%>
+    Profesor
+    <%elsif user.student%>
+    Alumno
+    <%else%>
+    <%end%></td>
+    <td><%= link_to 'Ver', user %></td>
+    <td><%= link_to 'Editar', edit_user_path(user) %></td>
+    <%if current_user.admin?%>
+    <td><%= link_to 'Eliminar', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  <%end%>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New User', new_user_path %>
+<%else%>
+</br>
+<b>Lo sentimos, no tienes los privilegios para ver esta parte del sitio</b>
+<%end%>

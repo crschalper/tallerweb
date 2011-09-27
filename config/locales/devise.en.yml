@@ -21,7 +21,6 @@ en:
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
-      invalid_captcha: 'The text'
     sessions:
       signed_in: 'Signed in successfully.'
       signed_out: 'Signed out successfully.'

@@ -11,27 +11,36 @@
     </div>
   <% end %>
 
-  <div><%= f.label :name %><br />
-  <%= f.text_field :name %></div>
-  
-  <div><%= f.label :lastname %><br />
-  <%= f.text_field :lastname %></div>
-  
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></div>
-  
-  <div><%= f.label :username %><br />
-  <%= f.text_field :username %></div>
-  
-  <div><%= f.label :role %><br />
-  <%= f.radio_button :role, :admin%><%= f.label :administrador %>
-  <%= f.radio_button :role, :teacher%><%= f.label :profesor %>
-  <%= f.radio_button :role, :student%><%= f.label :alumno %>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
   </div>
-
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname %>
+  </div>
+  <div class="field">
+    <%= f.label :rut %><br />
+    <%= f.number_field :rut %>
+  </div>
+  <%if current_user.admin?%>
+  <div class="field">
+    <%= f.label :admin %><br />
+    <%= f.check_box :admin %>
+  </div>
+  <div class="field">
+    <%= f.label :teacher %><br />
+    <%= f.check_box :teacher %>
+  </div>
+  <div class="field">
+    <%= f.label :student %><br />
+    <%= f.check_box :student %>
+  </div>
+  <%end%>
   <div class="actions">
     <%= f.submit %>
   </div>

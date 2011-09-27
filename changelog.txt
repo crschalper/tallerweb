@@ -1,4 +1,16 @@
 Changelog
+
+26.9.2011 - Versión 0.5
+Nuevas características:
+- Manipulación CRUD por parte de los administradores
+
+Cambios:
+- Nueva forma de administración mediante nuevas columnas en usuario
+- Cambios de idioma en textos
+
+Bugs:
+- Arreglos de seguridad en ingresos en sitios.
+
 --------------------------------------
 20.9.2011 - Versión 0.4
 Agregado el ordenar las columnas de los usuarios.

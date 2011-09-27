@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Webapp::Application.config.secret_token = 'aa891c94d40ee1e4420a526b9318e50381d546dfba82030f29ac8c8534525821ccb0c3802405eef3cef0eb6c6d4097081ef62c68c73884f5a0e31a8a685566bd'
+Tallerweb::Application.config.secret_token = 'd7d8afc0e83649792500bc0c75382acd3b66539706030f8a598712b785f98e4bd120f4c9b6dc98ead0e110a477f783ec6218d3ce3a13fa8a683da56d5126d54b'

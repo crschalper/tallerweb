@@ -1,23 +1,42 @@
+<%if current_user.admin?|| current_user == @user %>
 <p id="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @user.username %>
+</p>
 
 <p>
   <b>Name:</b>
   <%= @user.name %>
 </p>
+
 <p>
   <b>Lastname:</b>
   <%= @user.lastname %>
 </p>
+
 <p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-<p>
-  <b>Role:</b>
-  <%= @user.role %>
+  <b>Rut:</b>
+  <%= @user.rut %>
 </p>
 
+<p>
+  <b>Rol:</b>
+  <%if @user.admin? %>
+    Administrador
+    <%elsif @user.teacher?%>
+    Profesor
+    <%elsif @user.student%>
+    Alumno
+    <%else%>
+    <%end%>
+</p>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Editar', edit_user_path(@user) %><%if current_user.admin?%> |
+<%= link_to 'Usuarios', users_path %>
+<%end%>
+<%else%>
+</br>
+<b>Lo sentimos, no tienes los privilegios para ver esta parte del sitio</b>
+<%end%>

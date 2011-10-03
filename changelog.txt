@@ -1,5 +1,12 @@
 Changelog
 
+3.10.2011 - Versión 0.6
+
+Nuevas características:
+- Skin de http://www.freecsstemplates.org/preview/liberty/
+
+
+--------------------------------------
 26.9.2011 - Versión 0.5
 Nuevas características:
 - Manipulación CRUD por parte de los administradores

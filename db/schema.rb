@@ -10,16 +10,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110926050621) do
+ActiveRecord::Schema.define(:version => 20111014211447) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "content"
+    t.float    "nota"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active"
+  end
+
+  create_table "cursos", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "content"
+    t.float    "nota"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "name"
     t.string   "lastname"
     t.integer  "rut"
-    t.boolean  "admin"
-    t.boolean  "teacher"
-    t.boolean  "student"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                                 :default => "", :null => false
@@ -35,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110926050621) do
     t.integer  "failed_attempts",                       :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "curso_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

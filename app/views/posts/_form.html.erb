@@ -1,0 +1,43 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :autor %><br />
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.text_field :user_id, :disabled => "disabled", :value => current_user.name %>
+  </div>
+  
+  [<k>Todos los campos son obligatorios</k>]
+
+  <br>
+<br>
+  <div class="field">
+    <%= f.label :titulo %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :contenido %><br />
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.label :nota %><br />
+    <%= f.text_field :nota %>
+  </div>
+  <div class="field">
+    <%= f.label :activo %><br />
+    <%= f.check_box :active %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

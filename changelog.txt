@@ -1,5 +1,32 @@
-Changelog
+CHANGELOG
 
+19.10.2011 - Versión 0.9
+
+Cambios
+- NUevas formas de ingresar los  usuarios en los posts
+- NUevo display de posts
+- Se muestran todos los post en el main_page.
+
+Por arreglar:
+- Editar usuarios, contraseñas
+
+-------------------------------------
+
+15.10.2011 - Versión 0.8
+
+Nuevas características
+- Agregados los comentarios
+
+-------------------------------------
+13.10.2011 - Versión 0.7
+
+Nuevas características
+- Agregados los posts
+
+Cambios:
+- Cambio en el manejo de roles - Nueva columna Type en el modelo de User
+
+--------------------------------------
 3.10.2011 - Versión 0.6
 
 Nuevas características:

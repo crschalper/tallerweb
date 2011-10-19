@@ -2,31 +2,36 @@
 
 		<div id="menu">
 			<ul>
-			<% if user_signed_in? %>
-				<li><%=link_to "Inicio", root_path%></li>
-				<li><%=link_to "Perfil", user_path(current_user)%></li>
-				<li><%if current_user.admin?%><%= link_to "Usuarios", users_path%><%end%></li>	
-				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
-			<% else %>
+				<% if user_signed_in? %>
 				<li><%=link_to "Inicio", root_path%> </li>
-				<li class="current_page_item first"><span><%= link_to "Inscribete!", new_user_registration_path %></span></li>
-				<li><%= link_to "Entra", new_user_session_path %></li>
-			<% end %>
+				<li><%=link_to "Perfil", user_path(current_user)%></li>
+					<%if current_user.type=="Admin"%>
+					<li><%= link_to "Usuarios", users_path%></li>
+					<li><%= link_to "Cursos", cursos_path%></li>
+					<li><%= link_to "Posts", posts_path%></li>
+					<li><%= link_to "Comentarios", comments_path%></li>
+					<%end%>
+						
+				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
+				<% else %>
+				<li><%=link_to "Inicio", root_path%></li>
+				<li class="current_page_item first"><span><%= link_to "Inscribete", new_user_registration_path %></span> </li>
+				<li><%= link_to "Entra!", new_user_session_path %></li>
+				<% end %>
 			</ul>
 		</div><!-- end #menu -->
 
-	</div><!-- end #header -->
-	
-	<div id="logo">
+</div><!-- end #header -->
+
+<div id="logo">
 		<h1>Posts</h1>
 		<p>En desarrollo</p>
-	</div><!-- end #logo -->
+</div><!-- end #logo -->
 
 <div id="page">
 
 	<div id="content">
-	
-	<h2>Inscribirse</h2>
+<h2>Inscribete!</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -37,15 +42,14 @@
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
-  <div><%= f.label "Confirmacion de password" %><br />
+  <div><%= f.label :Confirmacion_password %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Inscribir" %></div>
+  <div><%= f.submit "Sign up" %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
 
-	</div><!-- end #content -->
+</div><!-- end #content -->
 
 		
 
@@ -89,4 +93,5 @@
 	</div>
 
 	<!-- end #footer -->
+
 

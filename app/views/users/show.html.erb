@@ -2,32 +2,52 @@
 
 		<div id="menu">
 			<ul>
-			<% if user_signed_in? %>
-				<li> <%=link_to "Inicio", root_path%></li>
+				<% if user_signed_in? %>
+				<li><%=link_to "Inicio", root_path%> </span></li>
+				<%if current_user.id = @user.id%>
 				<li class="current_page_item first"><span><%=link_to "Perfil", user_path(current_user)%> </span></li>
-				<li><%if current_user.admin?%><%= link_to "Usuarios", users_path%><%end%></li>	
+				<%else%>
+				<li><%=link_to "Perfil", user_path(current_user)%></li>
+				<%end%>
+					<%if current_user.type=="Admin"%>
+					<li><%= link_to "Usuarios", users_path%></li>
+					<li><%= link_to "Cursos", cursos_path%></li>
+					<li><%= link_to "Posts", posts_path%></li>
+					<li><%= link_to "Comentarios", comments_path%></li>
+					<%end%>
+					<%if current_user.type=="Teacher"%>
+					<%cursos = current_user.cursos %>
+					<%cursos.each do |curso| %>
+					<li><%= link_to "Mi curso", curso%></li>
+					<%end%>
+					<%end%>
+					<%if current_user.type=="Student"%>
+					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
+					<%cursos.each do |curso|%>
+					<li><%= link_to "Mi curso", curso%></li>
+					<%end%>
+					<%end%>
+					
+						
 				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
-			<% else %>
-				<li><%=link_to "Inicio", root_path%></li>
-				<li><%= link_to "Inscribete!", new_user_registration_path %></li>
-				<li><%= link_to "Entra", new_user_session_path %></li>
-			<% end %>
+				<% else %>
+				<li class="current_page_item first"><span><%=link_to "Inicio", root_path%> </span></li>
+				<li><%= link_to "Inscribete", new_user_registration_path %> </li>
+				<li><%= link_to "Entra!", new_user_session_path %></li>
+				<% end %>
 			</ul>
 		</div><!-- end #menu -->
 
-	</div><!-- end #header -->
-	
-	<div id="logo">
+</div><!-- end #header -->
+
+<div id="logo">
 		<h1>Posts</h1>
 		<p>En desarrollo</p>
-	</div><!-- end #logo -->
+</div><!-- end #logo -->
 
 <div id="page">
 
 	<div id="content">
-	
-	<%if current_user.admin?|| current_user == @user %>
-<p id="notice"><%= notice %></p>
 
 <p>
   <b>Username:</b>
@@ -35,12 +55,12 @@
 </p>
 
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @user.name %>
 </p>
 
 <p>
-  <b>Lastname:</b>
+  <b>Apellido:</b>
   <%= @user.lastname %>
 </p>
 
@@ -49,35 +69,21 @@
   <%= @user.rut %>
 </p>
 
+<%if @user.type=="Teacher"%>
 <p>
-  <b>Rol:</b>
-  <%if @user.admin? %>
-    Administrador
-    <%elsif @user.teacher?%>
-    Profesor
-    <%elsif @user.student%>
-    Alumno
-    <%else%>
-    <%end%>
+  <b>Cursos:</b><br>
+  <%cursos = @user.cursos %>
+  <%cursos.each do |curso| %>
+  <%=link_to curso.name, curso%>
+  <%end%>
 </p>
-
-<%= link_to 'Editar', edit_user_path(@user) %><%if current_user.admin?%> |
-<%= link_to 'Usuarios', users_path %>
-<%end%>
-<%else%>
-</br>
-<b>Lo sentimos, no tienes los privilegios para ver esta parte del sitio</b>
 <%end%>
 
-			
-			
-	</div><!-- end #content -->
+<%if current_user.type=="Admin"%>
+<%= link_to 'Editar', edit_user_path(@user) %> 
+<%end%>
 
-		
-
-
-
-
+</div><!-- end #content -->
 	<div id="sidebar">
 			<ul>
 				<li><% if !user_signed_in?%>

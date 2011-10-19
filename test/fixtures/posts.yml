@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  title: MyString
+  content: MyString
+  nota: 1.5
+  active: false
+
+two:
+  user_id: 1
+  title: MyString
+  content: MyString
+  nota: 1.5
+  active: false

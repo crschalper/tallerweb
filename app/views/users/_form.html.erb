@@ -10,37 +10,38 @@
       </ul>
     </div>
   <% end %>
-
+ </br>
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :nombre %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :lastname %><br />
+    <%= f.label :apellido %><br />
     <%= f.text_field :lastname %>
   </div>
+  
   <div class="field">
     <%= f.label :rut %><br />
     <%= f.number_field :rut %>
+    
   </div>
-  <%if current_user.admin?%>
-  <div class="field">
-    <%= f.label :admin %><br />
-    <%= f.check_box :admin %>
-  </div>
-  <div class="field">
-    <%= f.label :teacher %><br />
-    <%= f.check_box :teacher %>
-  </div>
-  <div class="field">
-    <%= f.label :student %><br />
-    <%= f.check_box :student %>
-  </div>
-  <%end%>
+  <%if current_user.type=="Admin"%><br>
+  <%= f.label :tipo %><br />
+  <%= f.text_field :type %>
+
+  <br>
+  <br> 
+
+	 <%= f.label :curso_id %><br />
+	 <%= f.collection_select(:curso_id, Curso.all, :id, :name) %> 
+	 <%end%>
+	 </br> </br>
+  
+  
   <div class="actions">
     <%= f.submit %>
   </div>

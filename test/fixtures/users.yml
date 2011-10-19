@@ -5,15 +5,11 @@ one:
   name: MyString
   lastname: MyString
   rut: 1
-  admin: false
-  teacher: false
-  student: false
+  type: 
 
 two:
   username: MyString
   name: MyString
   lastname: MyString
   rut: 1
-  admin: false
-  teacher: false
-  student: false
+  type: 

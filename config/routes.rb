@@ -1,9 +1,23 @@
-Tallerweb::Application.routes.draw do
-  get "estatico/index"
+Prueba::Application.routes.draw do
+  resources :comments
 
-  devise_for :users
+  resources :posts
+
+  resources :cursos
+
+  get "registrations_controller/update"
+
+  resources :teachers
+
+  resources :students
+
+  resources :admins
+
+  devise_for :users, :admins, :students, :teachers
 
   resources :users
+
+match '/comments/new/:id_post' 	=> 'comments#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -54,7 +68,7 @@ Tallerweb::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'estatico#index'
+   root :to => 'static#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,107 @@
+<div id="header">
+
+		<div id="menu">
+			<ul>
+			<% if user_signed_in? %>
+				
+				<li><%=link_to "Inicio", root_path%></li>
+				<li><%=link_to "Perfil", user_path(current_user)%></li>
+					<%if current_user.type=="Admin"%>
+					<li><%= link_to "Usuarios", users_path%></li>
+					<li><%= link_to "Cursos", cursos_path%></li>
+					<li><%= link_to "Posts", posts_path%></li>
+					<li><%= link_to "Comentarios", comments_path%></li>
+					<%end%>
+						
+				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
+				<% else %>
+				<li class="current_page_item first"><span><%=link_to "Inicio", root_path%> </span></li>
+				<li><%= link_to "Inscribete", new_user_registration_path %> </li>
+				<li><%= link_to "Entra!", new_user_session_path %></li>
+				<% end %>
+			</ul>
+		</div><!-- end #menu -->
+
+</div><!-- end #header -->
+
+<div id="logo">
+		<h1>Posts</h1>
+		<p>En desarrollo</p>
+</div><!-- end #logo -->
+
+<div id="page">
+
+	<div id="content">
+
+<p>
+  <b>Username:</b>
+  <%= @admin.username %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @admin.name %>
+</p>
+
+<p>
+  <b>Lastname:</b>
+  <%= @admin.lastname %>
+</p>
+
+<p>
+  <b>Rut:</b>
+  <%= @admin.rut %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @admin.type %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> 
+</div><!-- end #content -->
+
+		
+
+
+
+
+	<div id="sidebar">
+			<ul>
+				<li><% if !user_signed_in?%>
+					<h2>Entrar</h2>
+					<p>
+						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+							<div><%= f.label :email %> </br>
+							<%= f.email_field :email %></div>
+
+							<div><%= f.label :password %></br>
+							<%= f.password_field :password %></div>
+
+							<% if devise_mapping.rememberable? -%>
+							<div><%= f.check_box :remember_me %> <%= f.label "Recordarme" %></div>
+							<% end %>
+
+							<div><%= f.submit "Entrar" %></div>
+							<% end %>
+							
+					</p>
+					<%end%>
+				</li>
+				
+			</ul>
+	</div><!-- end #sidebar -->
+	<div style="clear: both;">&nbsp;</div>
+
+	</div>
+
+</div><!-- end #page -->
+<div id="footer">
+
+		<p>Copyright (c) 2011 iic2515-3 Cristian Schalper. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+
+	</div>
+
+	<!-- end #footer -->
+

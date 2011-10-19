@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tallerweb</title>
+  <title>Posts-Web</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <meta name="version" ver=0.6>
+    <meta name="version" ver=0.9>
 
 </head>
 <body>
-<div id="wrapper">
-<!--
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-	<% if user_signed_in? %>
-	    Ingresado como <b><%= current_user.name %> <%= current_user.lastname %></b> . No eres tu? 
-<%end%>
--->
-	<%=yield %>
+<div id="wrapper">
+
+<%= yield %>
 </div>
-
-
-
 </body>
 </html>

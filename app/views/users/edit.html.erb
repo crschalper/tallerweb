@@ -3,53 +3,48 @@
 		<div id="menu">
 			<ul>
 			<% if user_signed_in? %>
-				<li> <%=link_to "Inicio", root_path%></li>
-				<li ><%=link_to "Perfil", user_path(current_user)%> </li>
-				<li class="current_page_item first"><span><%if current_user.admin?%><%= link_to "Usuarios", users_path%><%end%></span></li>	
-				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
-			<% else %>
+				
 				<li><%=link_to "Inicio", root_path%></li>
-				<li><%= link_to "Inscribete!", new_user_registration_path %></li>
-				<li><%= link_to "Entra", new_user_session_path %></li>
-			<% end %>
+				<li><%=link_to "Perfil", user_path(current_user)%></li>
+					<%if current_user.type=="Admin"%>
+					<li><%= link_to "Usuarios", users_path%></li>
+					<li><%= link_to "Cursos", cursos_path%></li>
+					<li><%= link_to "Posts", posts_path%></li>
+					<li><%= link_to "Comentarios", comments_path%></li>
+					<%end%>
+					<%if current_user.type=="Teacher"%>
+					<%cursos = current_user.cursos %>
+					<%cursos.each do |curso| %>
+					<li><%= link_to "Mi curso", curso%></li>
+					<%end%>
+					<%end%>
+						
+				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
+				<% else %>
+				<li><%=link_to "Inicio", root_path%></li>
+				<li><%= link_to "Inscribete", new_user_registration_path %> </li>
+				<li><%= link_to "Entra!", new_user_session_path %></li>
+				<% end %>
 			</ul>
 		</div><!-- end #menu -->
 
-	</div><!-- end #header -->
-	
-	<div id="logo">
+</div><!-- end #header -->
+
+<div id="logo">
 		<h1>Posts</h1>
 		<p>En desarrollo</p>
-	</div><!-- end #logo -->
+</div><!-- end #logo -->
 
 <div id="page">
 
 	<div id="content">
-	
-<%if current_user.admin?|| current_user == @user %>
 
-<h2>Editing user</h2>
+<h2>Editar Usuario</h2>
 
 <%= render 'form' %>
 
-<%= link_to 'Ver', @user %><%if current_user.admin?%> |
-
-<%= link_to 'Usuarios', users_path %>
-<%end%>
-<%else%>
-</br>
-<b>Lo sentimos, no tienes los privilegios para ver esta parte del sitio</b>
-<%end%>
-
-
-			
-			
-	</div><!-- end #content -->
-
-		
-
-
-
+<%= link_to 'Cancelar', user_path%>
+</div><!-- end #content -->
 
 	<div id="sidebar">
 			<ul>
@@ -88,4 +83,3 @@
 	</div>
 
 	<!-- end #footer -->
-

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Tallerweb::Application.load_tasks
+Prueba::Application.load_tasks

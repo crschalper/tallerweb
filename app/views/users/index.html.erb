@@ -2,44 +2,52 @@
 
 		<div id="menu">
 			<ul>
-			<% if user_signed_in? %>
-				<li> <%=link_to "Inicio", root_path%></li>
-				<li ><%=link_to "Perfil", user_path(current_user)%> </li>
-				<li class="current_page_item first"><span><%if current_user.admin?%><%= link_to "Usuarios", users_path%><%end%></span></li>	
+				<% if user_signed_in? %>
+				<li><%=link_to "Inicio", root_path%> </li>
+				<li><%=link_to "Perfil", user_path(current_user)%></li>
+					<%if current_user.type=="Admin"%>
+					<li class="current_page_item first"><span><%= link_to "Usuarios", users_path%></span></li>
+					<li><%= link_to "Cursos", cursos_path%></li>
+					<li><%= link_to "Posts", posts_path%></li>
+					<li><%= link_to "Comentarios", comments_path%></li>
+					<%end%>
+						
 				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
-			<% else %>
-				<li><%=link_to "Inicio", root_path%></li>
-				<li><%= link_to "Inscribete!", new_user_registration_path %></li>
-				<li><%= link_to "Entra", new_user_session_path %></li>
-			<% end %>
+				<% else %>
+				<li class="current_page_item first"><span><%=link_to "Inicio", root_path%> </span></li>
+				<li><%= link_to "Inscribete", new_user_registration_path %> </li>
+				<li><%= link_to "Entra!", new_user_session_path %></li>
+				<% end %>
 			</ul>
 		</div><!-- end #menu -->
 
-	</div><!-- end #header -->
-	
-	<div id="logo">
+</div><!-- end #header -->
+
+<div id="logo">
 		<h1>Posts</h1>
 		<p>En desarrollo</p>
-	</div><!-- end #logo -->
+</div><!-- end #logo -->
 
 <div id="page">
 
 	<div id="content">
 	
-<%if current_user.admin?%>
-<h2>Usuarios Registrados</h2>
+<%if current_user.type=="Admin"%>
+<h2>Usuarios registrados</h2>
+<br>
 
 <table>
   <tr>
-    <th><%=sortable "Username" %></th>
-    <th><%=sortable "name" %></th>
-      <th><%=sortable "lastname" %></th>
-    <th><%=sortable "rut"%></th>
-    <th><%=sortable "role"%></th>
+    <th>Username</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Rut</th>
+    <th>Email</th>
+    <th>Rol</th>
     <th></th>
     <th></th>
     <th></th>
-</tr>
+  </tr>
 
 <% @users.each do |user| %>
   <tr>
@@ -47,33 +55,22 @@
     <td><%= user.name %></td>
     <td><%= user.lastname %></td>
     <td><%= user.rut %></td>
-    <td><%if user.admin? %>
-    Administrador
-    <%elsif user.teacher?%>
-    Profesor
-    <%elsif user.student%>
-    Alumno
-    <%else%>
-    <%end%></td>
+    <td><%= user.email %></td>
+    <td><%= user.type %></td>
     <td><%= link_to 'Ver', user %></td>
     <td><%= link_to 'Editar', edit_user_path(user) %></td>
-    <%if current_user.admin?%>
     <td><%= link_to 'Eliminar', user, :confirm => 'Are you sure?', :method => :delete %></td>
-  <%end%>
   </tr>
 <% end %>
 </table>
 
-<br />
 <%else%>
-</br>
-<b>Lo sentimos, no tienes los privilegios para ver esta parte del sitio</b>
+<br>
+<b>Lo sentimos, no puedes ver esta parte del sitio web.</b>
 <%end%>
+<br />
 
-
-			
-			
-	</div><!-- end #content -->
+</div><!-- end #content -->
 
 		
 

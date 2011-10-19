@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  post_id: 1
+  content: MyString
+  nota: 1.5
+
+two:
+  user_id: 1
+  post_id: 1
+  content: MyString
+  nota: 1.5

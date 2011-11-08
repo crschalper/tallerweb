@@ -1,5 +1,28 @@
 CHANGELOG
 
+7.11.2011 - Versión 0.11
+
+Cambios
+- Agregada la posibilidad de subir un archivo.
+- Ingreso con rut, usuario y email
+- Calculo de nota de post basado en notas de comentarios
+
+Por arreglar:
+- Subir varios archivos
+- Comments anidados
+- Editar usuarios, contraseñas
+
+-------------------------------------
+
+4.11.2011 - Versión 0.10
+
+Cambios
+- Agregada paginación y ordenamiento de columnas.
+
+Por arreglar:
+- Editar usuarios, contraseñas
+
+-------------------------------------
 19.10.2011 - Versión 0.9
 
 Cambios

@@ -3,14 +3,27 @@
 		<div id="menu">
 			<ul>
 				<% if user_signed_in? %>
-				<li><%=link_to "Inicio", root_path%> </li>
+				<li><%=link_to "Inicio", root_path%> </span></li>
 				<li><%=link_to "Perfil", user_path(current_user)%></li>
 					<%if current_user.type=="Admin"%>
-					<li class="current_page_item first"><span><%= link_to "Usuarios", users_path%></span></li>
+					<li><%= link_to "Usuarios", users_path%></li>
 					<li><%= link_to "Cursos", cursos_path%></li>
 					<li><%= link_to "Posts", posts_path%></li>
 					<li><%= link_to "Comentarios", comments_path%></li>
 					<%end%>
+					<%if current_user.type=="Teacher"%>
+					<%cursos = current_user.cursos %>
+					<%cursos.each do |curso| %>
+					<li><%= link_to "Mi curso", curso%></li>
+					<%end%>
+					<%end%>
+					<%if current_user.type=="Student"%>
+					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
+					<%cursos.each do |curso|%>
+					<li><%= link_to "Mi curso", curso%></li>
+					<%end%>
+					<%end%>
+					
 						
 				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
 				<% else %>
@@ -20,6 +33,7 @@
 				<% end %>
 			</ul>
 		</div><!-- end #menu -->
+
 
 </div><!-- end #header -->
 
@@ -38,12 +52,12 @@
 
 <table>
   <tr>
-    <th>Username</th>
-    <th>Nombre</th>
-    <th>Apellido</th>
-    <th>Rut</th>
-    <th>Email</th>
-    <th>Rol</th>
+    <th><%= sortable "username"%></th>
+    <th><%= sortable "name"%></th>
+    <th><%= sortable "lastname"%></th>
+    <th><%= sortable "rut"%></th>
+    <th><%= sortable "email"%></th>
+    <th><%= sortable "type"%></th>
     <th></th>
     <th></th>
     <th></th>
@@ -62,7 +76,10 @@
     <td><%= link_to 'Eliminar', user, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
+
 </table>
+<br>
+<%=will_paginate @users%>
 
 <%else%>
 <br>

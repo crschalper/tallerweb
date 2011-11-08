@@ -31,7 +31,8 @@
   </div>
   <%if current_user.type=="Admin"%><br>
   <%= f.label :tipo %><br />
-  <%= f.text_field :type %>
+  <%@tipos =['Student', 'Teacher', 'Admin']%>
+  <%= f.select :type, @tipos %>
 
   <br>
   <br> 

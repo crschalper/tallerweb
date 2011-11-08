@@ -9,7 +9,9 @@ gem 'sqlite3'
 
 gem 'json'
 gem 'devise'
-gem 'simple_form'
+gem 'will_paginate', '~> 3.0'
+gem 'plupload-rails3'
+gem "paperclip", "~> 2.4"
 
 # Gems used only for assets and not required
 # in production environments by default.

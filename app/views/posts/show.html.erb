@@ -60,15 +60,37 @@
 
 </div>
 
+<%sum = 0%>
+  <%counter = 0	%>	
+<%comments = Comment.find(:all, :conditions=>{:post_id=>@post.id})%>
+<%comments.each do |comment|%>
+	<%if comment.active%>
+		<%if comment.nota%>
+		<%sum += comment.nota%>
+		<%counter += 1%>
+		<%end%>	
+	<%end%>	
 
+<%end%>
+
+	<%if counter > 0%>
+	<%@post.nota = sum/counter%>
+	<%@post.save%>
+	<%end%>
+  
+<%if @post.nota>0%>
 <p>
   <b>Nota:</b>
   <%= @post.nota %>
 </p>
-
+<%end%>
 <p>
   <b>Activo:</b>
   <%= @post.active %>
+</p>
+<p>
+<b>Imagen del post:</b><br>
+<%= image_tag @post.image.url %>
 </p>
 
 <p>
@@ -76,6 +98,7 @@
   <%comments = Comment.find(:all, :conditions=>{:post_id=>@post.id})%>
   <%comments.each do |comment|%>
   <%if comment.active%>
+  <br>
   Autor: <%=User.find(comment.user_id).name%> <%=User.find(comment.user_id).lastname%></br>
   Fecha: <%=comment.created_at%></br>
   Nota: <%=comment.nota%></br>
@@ -87,14 +110,15 @@
 <%end%>
   <%end%>
   <br>
+  <% if user_signed_in? %>
   <%=link_to 'Comentar', new_comment_path + '/' + @post.id.to_s%>
   
 </p>
 
 
-
 <%if current_user.id == @post.user_id || current_user.type=="Admin"%>
 <%= link_to 'Editar', edit_post_path(@post) %> 
+<%end%>
 <%end%>
 
 	</div><!-- end #content -->

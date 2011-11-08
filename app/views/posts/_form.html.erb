@@ -29,15 +29,19 @@
     <%= f.label :contenido %><br />
     <%= f.text_field :content %>
   </div>
-  <div class="field">
-    <%= f.label :nota %><br />
-    <%= f.text_field :nota %>
-  </div>
+  
   <div class="field">
     <%= f.label :activo %><br />
     <%= f.check_box :active %>
   </div>
+  <div class="field">
+    <%= f.label :Archivo %><br />
+    <%= f.file_field :image %>
+  </div>
+    
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+

@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
-	 before_filter :authenticate_user!
+	 before_filter :authenticate_user!, :except => [:show]
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+    @posts = Post.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,6 +28,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @post }
@@ -42,8 +44,8 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-
-    respond_to do |format|
+   
+   respond_to do |format|
       if @post.save
         format.html { redirect_to @post, :notice => 'Post was successfully created.' }
         format.json { render :json => @post, :status => :created, :location => @post }
@@ -58,8 +60,7 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-
-    respond_to do |format|
+     respond_to do |format|
       if @post.update_attributes(params[:post])
         format.html { redirect_to @post, :notice => 'Post was successfully updated.' }
         format.json { head :ok }
@@ -81,4 +82,4 @@ class PostsController < ApplicationController
       format.json { head :ok }
     end
   end
-end
+  end

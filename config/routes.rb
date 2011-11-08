@@ -1,4 +1,6 @@
 Prueba::Application.routes.draw do
+  resources :archivos
+
   resources :comments
 
   resources :posts

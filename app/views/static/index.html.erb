@@ -45,14 +45,15 @@
 
 	<div id="content">
 	
-	<%posts = Post.all%>
-	<%posts.each do |post|%>
+	<%@posts = Post.all%>
+	<%@posts.each do |post|%>
 	<%if post.active%>
 	<div class="post">
 
 				<h2 class="title"><%=post.title%></h2>
 
-				<p class="meta"><%=post.created_at%> <span> - Autor <%= User.find(post.user_id).name%> <%= User.find(post.user_id).lastname %>
+				<p class="meta"><%=post.created_at%> <span> - Autor <%= User.find(post.user_id).name%> <%= User.find(post.user_id).lastname %> <%=link_to "ver mas", post%>
+				
 				</span></p>
 
 				<div class="entry">
@@ -60,11 +61,11 @@
 					<p> <%= post.content %></p>
 
 				</div>
+				
 
 	</div>
 	<%end%>
 	<%end%>
-
 
 	<%= yield %>
 
@@ -81,10 +82,10 @@
 					<h2>Entrar</h2>
 					<p>
 						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-							<div><%= f.label :email %> </br>
-							<%= f.email_field :email %></div>
-
-							<div><%= f.label :password %></br>
+							 <div><%= f.label "E-mail, Rut o Usuario" %><br />
+							  <%= f.text_field :login %></div>
+							  
+							  <div><%= f.label :password %></br>
 							<%= f.password_field :password %></div>
 
 							<% if devise_mapping.rememberable? -%>

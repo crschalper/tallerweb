@@ -32,14 +32,16 @@
 
 	<div id="content">
 <h2>Inscribete!</h2>
-
+<br>
+[Todos los campos son obligatorios]
+<br>
+<br>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
+  <div>Correo electr&oacute;nico<br />
   <%= f.email_field :email %></div>
 
- <div><%= f.label :username %><br />
+ <div><%= f.label :usuario %><br />
     <%= f.text_field :username %></div>
     
   <div><%= f.label :nombre %><br />
@@ -48,16 +50,16 @@
   <div><%= f.label :apellido %><br />
     <%= f.text_field :lastname %></div>
   
-  <div><%= f.label "Rut (sin puntos ni guion)" %><br />
+  <div>Rut (sin puntos ni gui&oacute;n. Si termina en K, reempl&aacute;celo por un 0)<br />
     <%= f.number_field :rut %></div>
 
-  <div><%= f.label :password %><br />
+  <div>Contrase&ntilde;a<br/>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :Confirmacion_password %><br />
+  <div>Confirmaci&oacute;n contrase&ntilde;a<br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit "Inscribir" %></div>
 <% end %>
 
 
@@ -74,10 +76,10 @@
 					<h2>Entrar</h2>
 					<p>
 						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-							<div><%= f.label :email %> </br>
-							<%= f.email_field :email %></div>
-
-							<div><%= f.label :password %></br>
+						<div><%= f.label "E-mail, Rut o Usuario" %><br />
+							  <%= f.text_field :login %></div>
+							  
+							<div>Contrase&ntilde;a</br>
 							<%= f.password_field :password %></div>
 
 							<% if devise_mapping.rememberable? -%>

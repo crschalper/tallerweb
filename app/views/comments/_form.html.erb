@@ -28,7 +28,7 @@
 	<div class="field">
 		<%= f.label :Post %><br />
 		<%= f.hidden_field :post_id, :value => @post.id %>
-		<%= f.text_field :offer_id, :disabled => "disabled", :value => @post.title %>
+		<%= f.text_field :post_id, :disabled => "disabled", :value => @post.title %>
 	</div><br>
  <% else %>
 	  <div class="field">
@@ -41,18 +41,14 @@
     <%= f.label :contenido %><br />
     <%= f.text_area :content %>
   </div>
-  <div class="field">
-    <%= f.label :nota %><br />
-    <%= f.number_field :nota %>
-  </div>
   <%if current_user.type =="Admin"%>
   <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active%>
+    <%= f.label :activo %><br />
+    <%= f.check_box :active %>
   </div>
   <%end%>
   
   <div class="actions">
-    <%= f.submit :Comentar%>
+    <%= f.submit :Comentar, :confirm=>'No es posible modificar este comentario en el futuro. Continuar? '%>
   </div>
 <% end %>

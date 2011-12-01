@@ -13,11 +13,10 @@
 					<li><%= link_to "Comentarios", comments_path%></li>
 					<%end%>
 					<%if current_user.type=="Teacher"%>
-					<%cursos = current_user.cursos %>
-					<%cursos.each do |curso| %>
+					<%curso = Curso.find(current_user.curso_id) %>
 					<li><%= link_to "Mi curso", curso%></li>
 					<%end%>
-					<%end%>
+					
 					<%if current_user.type=="Student"%>
 					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
 					<%cursos.each do |curso|%>
@@ -51,7 +50,14 @@
 				<h2 class="title"><%= @post.title %></h2>
 
 				<p class="meta"><%= @post.created_at %><span> - Autor:   <%= User.find(@post.user_id).name%> <%= User.find(@post.user_id).lastname %>
+				
+				<%if current_user.type=="Admin" ||current_user.type=="Teacher" %>
+				<%if @post.active %><strong> - Post activo</strong> <i><%= link_to "[Desactivar]", desactivar_post_path(@post)%></i>
+				<%else%><strong> - Post inactivo</strong> <i><%= link_to "[Activar]", activar_post_path(@post)%></i>
+				<%end%>
+				<i><%= link_to '[Eliminar]', @post, :confirm => 'Alerta! Esto no puede deshacerse. Seguro?', :method => :delete %></i>
 				</span></p>
+				<%end%>
 
 				<div class="entry">
 
@@ -60,58 +66,151 @@
 
 </div>
 
-<%sum = 0%>
-  <%counter = 0	%>	
-<%comments = Comment.find(:all, :conditions=>{:post_id=>@post.id})%>
-<%comments.each do |comment|%>
-	<%if comment.active%>
-		<%if comment.nota%>
-		<%sum += comment.nota%>
-		<%counter += 1%>
-		<%end%>	
-	<%end%>	
-
-<%end%>
-
-	<%if counter > 0%>
-	<%@post.nota = sum/counter%>
-	<%@post.save%>
-	<%end%>
+<p>
   
-<%if @post.nota>0%>
+</p>
 <p>
-  <b>Nota:</b>
-  <%= @post.nota %>
+<%if !current_user.nil?%>
+<%if current_user.type=="Admin"|| current_user.curso_id == User.find(@post.user_id).curso_id%>
+<%if !@post.image_file_name.nil?%>
+<b>Archivo adjunto: </b>
+<%= link_to "Descargar", @post.image.url %>
 </p>
 <%end%>
+<%end%>
+<%end%>
 <p>
-  <b>Activo:</b>
-  <%= @post.active %>
-</p>
-<p>
-<b>Imagen del post:</b><br>
-<%= image_tag @post.image.url %>
-</p>
-
-<p>
-  <b>Comentarios:</b></br>
-  <%comments = Comment.find(:all, :conditions=>{:post_id=>@post.id})%>
+<br>
+  <b>Comentarios:</b>
+<%comments = Comment.find(:all, :conditions=>{:post_id=>@post.id})%>
+  
   <%comments.each do |comment|%>
-  <%if comment.active%>
-  <br>
-  Autor: <%=User.find(comment.user_id).name%> <%=User.find(comment.user_id).lastname%></br>
-  Fecha: <%=comment.created_at%></br>
-  Nota: <%=comment.nota%></br>
-  <%=comment.content%></br>
-  --------------------------------------------------------------------------
-  <%end%>
-<% if comments.nil?%>
-<b>No hay comentarios para este post.</b>
-<%end%>
-  <%end%>
+
+	  <%if comment.active || current_user.type=="Admin" || current_user.type=="Teacher" %>
+	  <div>
+		  <br>
+		  <u>Autor</u>: <%=User.find(comment.user_id).name%> <%=User.find(comment.user_id).lastname%>  <u>Fecha</u>: <%=comment.created_at%>
+		  
+		 <%if current_user.type=="Admin" ||current_user.type=="Teacher" %>
+		 <%if comment.active %><strong> - Comentario activo</strong> <br> <i><%= link_to "[Desactivar]", desactivar_comment_path(comment)%></i>
+		 <%else%> <strong> - Comentario inactivo</strong> <br>  <i><%= link_to "[Activar]", activar_comment_path(comment)%></i>
+		 <%end%>
+		 <i><%= link_to '[Eliminar]', comment, :confirm => 'Alerta! Esto no puede deshacerse. Seguro?', :method => :delete %></i>
+
+		 <%end%>
+		 
+		  </br>
+		 <%if comment.grade2>0%>
+		 <i>Promedio: <%=comment.grade2%></i></br>
+		 <%end%>
+		 
+		 <br><br>
+		  <%=comment.content%></br>
+		  <%if !current_user.nil?%>
+		  <%if current_user.type=="Admin"|| current_user.curso_id == User.find(@post.user_id).curso_id%>
+		  <div align = "center"><%= link_to 'Comentar comentario', new_comm_path+'/' + comment.id.to_s%><br></div>
+		  
+		  <%end%>
+		  <%end%>
+		  -------------------------------------------------------------------------- 
+	   </div>
+		 
+		  <%hijoss = Comm.find(:all, :conditions=>{:father_id=>comment.id})%>
+		 
+		 <%if hijoss.count ==0%>
+		 <%else%>
+			 <%i = hijoss.count%>
+			 <%hijos=[]%>
+				 <%while i>0 do %>
+				 <%hijos[i-1]=Comment.find(hijoss[i-1].son_id)%>
+				 <%i = i -1%>
+				 <%end%>
+				 
+			 <%hijos.each do |hijo|%>
+				<%comments.delete(hijo)%>
+				 <%if hijo.active  || current_user.type=="Admin" || current_user.type=="Teacher"%>
+				 <div id="hijo">
+					  <br>
+					  <u>Autor</u>: <%=User.find(hijo.user_id).name%> <%=User.find(hijo.user_id).lastname%>  <u>Fecha</u>: <%=hijo.created_at%>
+						<%if current_user.type=="Admin" ||current_user.type=="Teacher" %>
+						<%if hijo.active %><strong> - Comentario activo</strong> <br> <i><%= link_to "[Desactivar]", desactivar_comment_path(hijo)%></i>
+						<%else%> <strong> - Comentario inactivo</strong><br>   <i><%= link_to "[Activar]", activar_comment_path(hijo)%></i>
+						<%end%>
+						<i><%= link_to '[Eliminar]', hijo, :confirm => 'Alerta! Esto no puede deshacerse. Seguro?', :method => :delete %></i>
+
+						<%end%>
+					  
+					  
+					  </br>
+					 <%if hijo.grade2>0%>
+						<i>Promedio: <%=hijo.grade2%></i>
+					<%end%>
+					<i> Nota entregada: <%=hijo.nota%></i></br>
+					 <br><br>
+					 <%=hijo.content%></br>
+					<%if !current_user.nil?%>
+						<%if current_user.type=="Admin"|| current_user.curso_id == User.find(@post.user_id).curso_id%>
+						<div align = "center"><%= link_to 'Comentar comentario', new_comm_path+'/' + hijo.id.to_s%><br></div>
+						<%end%>
+					  <%end%>
+					  --------------------------------------------------------------------------
+				</div>
+				<%i+=1%>
+					 
+					 
+					 <%hijoss2 = Comm.find(:all, :conditions=>{:father_id=>hijo.id})%>
+					 
+					 <%if hijoss2.count==0%>
+					<%else%>
+						<%hijos2 = []%>
+						<%i = hijoss2.count%>
+							 <%while i>0 do %>
+							 <%hijos2[i-1]= Comment.find(hijoss2[i-1].son_id)%>
+							 <%i = i -1%>
+							 <%end%>
+						 <%hijos2.each do |nieto|%>
+						 <%comments.delete(nieto)%>
+							 <%if nieto.active  || current_user.type=="Admin"|| current_user.type=="Teacher"%>
+							<div id ="nieto">
+							  <br>
+							  <u>Autor</u>: <%=User.find(nieto.user_id).name%> <%=User.find(nieto.user_id).lastname%>  <u>Fecha</u>: <%=nieto.created_at%>
+							  <%if current_user.type=="Admin" ||current_user.type=="Teacher" %>
+								<%if nieto.active %><strong> - Comentario activo</strong><br>  <i><%= link_to "[Desactivar]", desactivar_comment_path(nieto)%></i>
+								<%else%> <strong> - Comentario inactivo</strong><br>   <i><%= link_to "[Activar]", activar_comment_path(nieto)%></i>
+								<%end%>
+								<i><%= link_to '[Eliminar]', nieto, :confirm => 'Alerta! Esto no puede deshacerse. Seguro?', :method => :delete %></i>
+
+								<%end%>
+							  
+							  </br>
+							 <%if nieto.grade2>0%>
+							<i>Promedio: <%=nieto.grade2%></i>
+							<%end%>  -  <i> Nota entregada: <%=nieto.nota%></i></br>
+							 <br><br>
+							  <%=nieto.content%></br>
+							  --------------------------------------------------------------------------
+							  </div>
+						
+							 <%end%>
+						 <%end%> 
+					 <%end%>
+				 <%end%>
+			 <%end%>
+		 <%end%>
+	 <%end%>
+ <%end%>
+  
+  
+
+  
+  
+  
   <br>
   <% if user_signed_in? %>
-  <%=link_to 'Comentar', new_comment_path + '/' + @post.id.to_s%>
+  <%if current_user.type=="Admin"|| current_user.curso_id == User.find(@post.user_id).curso_id%>
+  <br>
+  <%=link_to 'Comentar Post', new_comment_path + '/' + @post.id.to_s%>
+  <%end%>
   
 </p>
 
@@ -129,10 +228,10 @@
 					<h2>Entrar</h2>
 					<p>
 						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-							<div><%= f.label :email %> </br>
-							<%= f.email_field :email %></div>
-
-							<div><%= f.label :password %></br>
+							 <div><%= f.label "E-mail, Rut o Usuario" %><br />
+							  <%= f.text_field :login %></div>
+							  
+							  <div>Contrase&ntilde;a</br>
 							<%= f.password_field :password %></div>
 
 							<% if devise_mapping.rememberable? -%>

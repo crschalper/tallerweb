@@ -1,4 +1,6 @@
 Prueba::Application.routes.draw do
+  resources :comms
+
   resources :archivos
 
   resources :comments
@@ -20,6 +22,14 @@ Prueba::Application.routes.draw do
   resources :users
 
 match '/comments/new/:id_post' 	=> 'comments#new'
+match '/comms/new/:id_comment' 	=> 'comms#new'
+match'/comms/create'			=>'comms#create', :as => :comentario_comm
+match'/user/passedit/:id'		=>'users#passedit', :as=> :passedit
+match'/comment/desactivar/:id' =>'comments#desactivar', :as => :desactivar_comment
+match'/comment/activar/:id' =>'comments#activar', :as => :activar_comment
+match'/post/desactivar/:id' =>'posts#desactivar', :as => :desactivar_post
+match'/post/activar/:id' =>'posts#activar', :as => :activar_post
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

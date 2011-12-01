@@ -44,36 +44,46 @@
 
 <div id="page">
 
-	<div id="content">
 	
 <%if current_user.type=="Admin"%>
 <h2>Usuarios registrados</h2>
 <br>
 
-<table>
+<table border="1">
   <tr>
-    <th><%= sortable "username"%></th>
-    <th><%= sortable "name"%></th>
-    <th><%= sortable "lastname"%></th>
-    <th><%= sortable "rut"%></th>
-    <th><%= sortable "email"%></th>
-    <th><%= sortable "type"%></th>
-    <th></th>
-    <th></th>
+    <th><%= sortable "username", "Usuario"%></th>
+    <th><%= sortable "name", "Nombre"%></th>
+    <th><%= sortable "lastname", "Apellido"%></th>
+    <th><%= sortable "rut", "Rut"%></th>
+    <th><%= sortable "email", "Email"%></th>
+    <th><%= sortable "type", "Rol"%></th>
+    <th><%= sortable "created_at", "Fecha"%></th>
+
     <th></th>
   </tr>
 
 <% @users.each do |user| %>
-  <tr>
+  <tr  align="center">
     <td><%= user.username %></td>
     <td><%= user.name %></td>
     <td><%= user.lastname %></td>
     <td><%= user.rut %></td>
     <td><%= user.email %></td>
-    <td><%= user.type %></td>
-    <td><%= link_to 'Ver', user %></td>
-    <td><%= link_to 'Editar', edit_user_path(user) %></td>
-    <td><%= link_to 'Eliminar', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%if user.type=="Teacher"%>
+    Profesor
+    <%elsif user.type=="Student"%>
+    Alumno
+    <%elsif user.type=="Admin"%>
+Administrador
+<%else%>
+-
+<%end%>    
+    
+    
+    
+    </td>
+    <td><%= user.created_at %></td>
+    <td><%= link_to 'Ver', user%><br><%= link_to 'Editar', edit_user_path(user)%><br><%=  link_to 'Eliminar', user, :confirm => 'Alerta! Esto no puede deshacerse. Seguro?', :method => :delete%></td>
   </tr>
 <% end %>
 
@@ -87,39 +97,8 @@
 <%end%>
 <br />
 
-</div><!-- end #content -->
 
-		
-
-
-
-
-	<div id="sidebar">
-			<ul>
-				<li><% if !user_signed_in?%>
-					<h2>Entrar</h2>
-					<p>
-						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-							<div><%= f.label :email %> </br>
-							<%= f.email_field :email %></div>
-
-							<div><%= f.label :password %></br>
-							<%= f.password_field :password %></div>
-
-							<% if devise_mapping.rememberable? -%>
-							<div><%= f.check_box :remember_me %> <%= f.label "Recordarme" %></div>
-							<% end %>
-
-							<div><%= f.submit "Entrar" %></div>
-							<% end %>
-							
-					</p>
-					<%end%>
-				</li>
-				
-			</ul>
-	</div><!-- end #sidebar -->
-	<div style="clear: both;">&nbsp;</div>
+<div style="clear: both;">&nbsp;</div>
 
 	</div>
 

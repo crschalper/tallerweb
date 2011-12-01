@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107222704) do
+ActiveRecord::Schema.define(:version => 20111201012901) do
 
   create_table "archivos", :force => true do |t|
     t.integer  "post_id"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(:version => 20111107222704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active"
+    t.integer  "grade"
+    t.float    "grade2"
+  end
+
+  create_table "comms", :force => true do |t|
+    t.integer  "father_id"
+    t.integer  "son_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "cursos", :force => true do |t|

@@ -33,17 +33,17 @@
 
 	<div id="content">
 <p>
-  <b>Username:</b>
+  <b>Usuario:</b>
   <%= @teacher.username %>
 </p>
 
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @teacher.name %>
 </p>
 
 <p>
-  <b>Lastname:</b>
+  <b>Apellido:</b>
   <%= @teacher.lastname %>
 </p>
 
@@ -53,21 +53,17 @@
 </p>
 
 <p>
-  <b>Type:</b>
-  <%= @teacher.type %>
-</p>
-
-<p>
   <b>Curso:<br></b>
-  <%cursos = @teacher.cursos %>
-  <%cursos.each do |curso| %>
+  <%curso = Curso.find(@teacher.curso_id)%>
   <%=link_to curso.name, curso%>
   <br>
-  <%end%>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@teacher) %> 
-	</div><!-- end #content -->
+<%if current_user.type =="Admin"%>
+<%= link_to 'Editar', edit_user_path(@user) %> | 
+<%= link_to 'Cambiar Clave', passedit_path(@user)%>
+<%end%>
+</div><!-- end #content -->
 
 		
 

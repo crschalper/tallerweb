@@ -1,23 +1,20 @@
 <%= form_for(@post) do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
 
+<%if current_user.type =="Admin"%>
+<div class="field">
+    <%= f.label :autor %><br />
+    <%= f.collection_select(:user_id, User.find(:all, :conditions=>{:type=>"Teacher"}), :id, :name)%>
+</div>
+<%else%>
   <div class="field">
     <%= f.label :autor %><br />
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.text_field :user_id, :disabled => "disabled", :value => current_user.name %>
+    <%= f.hidden_field :user_id, :value => @post.user_id%>
+    <%= f.text_field :user_id, :disabled => "disabled", :value => User.find(@post.user_id).name %>
   </div>
-  
-  [<k>Todos los campos son obligatorios</k>]
+  <%end%>
+  [Todos los campos son obligatorios]
 
   <br>
 <br>
@@ -27,7 +24,7 @@
   </div>
   <div class="field">
     <%= f.label :contenido %><br />
-    <%= f.text_field :content %>
+    <%= f.text_area :content %>
   </div>
   
   <div class="field">
@@ -40,7 +37,7 @@
   </div>
     
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar" %>
   </div>
 <% end %>
 

@@ -1,4 +1,6 @@
 class Teacher < User
+	has_many:cursos
+	belongs_to:curso
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Father:</b>
+  <%= @comm.father_id %>
+</p>
+
+<p>
+  <b>Son:</b>
+  <%= @comm.son_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_comm_path(@comm) %> |
+<%= link_to 'Back', comms_path %>

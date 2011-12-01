@@ -34,17 +34,17 @@
 	<div id="content">
 
 <p>
-  <b>Username:</b>
+  <b>Usuario:</b>
   <%= @admin.username %>
 </p>
 
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @admin.name %>
 </p>
 
 <p>
-  <b>Lastname:</b>
+  <b>Apellido:</b>
   <%= @admin.lastname %>
 </p>
 
@@ -54,12 +54,15 @@
 </p>
 
 <p>
-  <b>Type:</b>
+  <b>Rol:</b>
   <%= @admin.type %>
 </p>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> 
+<%if current_user.type =="Admin"%>
+<%= link_to 'Editar', edit_user_path(@user) %> | 
+<%= link_to 'Cambiar Clave', passedit_path(@user)%>
+<%end%>
 </div><!-- end #content -->
 
 		

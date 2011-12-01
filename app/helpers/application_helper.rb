@@ -11,9 +11,9 @@ def resource_name
     @devise_mapping ||= Devise.mappings[:user]
   end
   
-  def sortable(column)
+  def sortable(column,name)
   title ||= column.titleize
   direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-  link_to title, {:sort => column, :direction => direction}
+  link_to name, {:sort => column, :direction => direction}
   end
 end

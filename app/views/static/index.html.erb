@@ -13,10 +13,8 @@
 					<li><%= link_to "Comentarios", comments_path%></li>
 					<%end%>
 					<%if current_user.type=="Teacher"%>
-					<%cursos = current_user.cursos %>
-					<%cursos.each do |curso| %>
+					<%curso = Curso.find(current_user.curso_id) %>
 					<li><%= link_to "Mi curso", curso%></li>
-					<%end%>
 					<%end%>
 					<%if current_user.type=="Student"%>
 					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
@@ -45,7 +43,14 @@
 
 	<div id="content">
 	
-	<%@posts = Post.all%>
+	<h1> Ultimos Posts</h1>
+	<br>
+	<br>
+	
+	<%@posts = Post.find(:all, :order=> "created_at DESC")%>
+	
+
+
 	<%@posts.each do |post|%>
 	<%if post.active%>
 	<div class="post">
@@ -66,6 +71,7 @@
 	</div>
 	<%end%>
 	<%end%>
+	
 
 	<%= yield %>
 
@@ -85,7 +91,7 @@
 							 <div><%= f.label "E-mail, Rut o Usuario" %><br />
 							  <%= f.text_field :login %></div>
 							  
-							  <div><%= f.label :password %></br>
+							  <div>Contrase&ntilde;a</br>
 							<%= f.password_field :password %></div>
 
 							<% if devise_mapping.rememberable? -%>

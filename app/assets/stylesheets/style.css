@@ -14,6 +14,20 @@ body {
 	color: #66665E;
 }
 
+.notice
+{
+	color: white;
+	background-color: red;
+	text-align:center;
+}
+.alert
+{
+	color: white;
+	background-color: red;
+	text-align:center;
+}
+
+
 h1, h2, h3 {
 	margin: 0;
 	text-transform: uppercase;
@@ -431,3 +445,10 @@ hr {
 #footer a {
 	color: #000000;
 }
+#hijo{
+	position:relative;
+	margin:50px;}
+#nieto{
+	position:relative;
+	margin:100px;
+	}

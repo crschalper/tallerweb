@@ -36,26 +36,24 @@
 <%if current_user.type=="Admin"%>
 <h2>Cursos</h2>
 </br>
-<table>
+<table border="1">
   <tr>
-    <th>Clase</th>
-    <th>Profesor Jefe</th>
-    <th></th>
-    <th></th>
+    <th><%= sortable "name", "Clase" %></th>
+    <th><%= sortable "user_id", "Profesor Jefe"%></th>
     <th></th>
   </tr>
 
 <% @cursos.each do |curso| %>
-  <tr>
+  <tr  align="center">
     <td><%= curso.name %></td>
     <td><%= User.find(curso.user_id).name%> <%= User.find(curso.user_id).lastname%></td>
-    <td><%= link_to 'Ver', curso %></td>
-    <td><%= link_to 'Editar', edit_curso_path(curso) %></td>
-    <td><%= link_to 'Eliminar', curso, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Ver', curso %><br><%= link_to 'Editar', edit_curso_path(curso) %><br><%= link_to 'Eliminar', curso, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
+<br />
+<%=will_paginate @users%>
 <br />
 
 <%= link_to 'Agregar Curso', new_curso_path %>

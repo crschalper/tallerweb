@@ -1,0 +1,17 @@
+<%sum = 0%>
+  <%counter = 0	%>	
+<%comments = Comment.find(:all, :conditions=>{:post_id=>@post.id})%>
+<%comments.each do |comment|%>
+	<%if comment.active%>
+		<%if comment.nota%>
+		<%sum += comment.nota%>
+		<%counter += 1%>
+		<%end%>	
+	<%end%>	
+
+<%end%>
+
+	<%if counter > 0%>
+	<%@post.nota = sum/counter%>
+	<%@post.save%>
+	<%end%>

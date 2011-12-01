@@ -13,11 +13,10 @@
 					<li><%= link_to "Comentarios", comments_path%></li>
 					<%end%>
 					<%if current_user.type=="Teacher"%>
-					<%cursos = current_user.cursos %>
-					<%cursos.each do |curso| %>
+					<%curso = Curso.find(current_user.curso_id) %>
 					<li><%= link_to "Mi curso", curso%></li>
 					<%end%>
-					<%end%>
+					
 						
 				<li><%= link_to "Salir", destroy_user_session_path, :method => :delete %></li>
 				<% else %>
@@ -39,11 +38,10 @@
 
 <div id="content">
 <h2>Editando Post</h2>
-
+<br>
 <%= render 'form' %>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Cancelar', post_path(@post) %>
 
 	</div><!-- end #content -->
 

@@ -35,12 +35,12 @@
 
 <%if current_user.type=="Admin"%>
 <h2>Posts</h2>
+<br>
 
-<table>
+<table border ="1">
   <tr>
     <th>Autor</th>
     <th>Titulo</th>
-    <th>Nota</th>
     <th>Activo</th>
     <th>Fecha Creacion</th>
     <th></th>
@@ -49,15 +49,20 @@
   </tr>
 
 <% @posts.each do |post| %>
-  <tr>
+  <tr align="center">
     <td><%= User.find(post.user_id).name%> <%= User.find(post.user_id).lastname%></td>
     <td><%= post.title %></td>
-    <td><%= post.nota %></td>
-    <td><%= post.active %></td>
+    <td>
+    <%if post.active %>
+    Si
+    <%else%>
+    No
+    <%end%>
+    </td>
     <td><%= post.created_at %></td>
     <td><%= link_to 'Ver', post %></td>
     <td><%= link_to 'Editar', edit_post_path(post) %></td>
-    <td><%= link_to 'Eliminar', post, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Eliminar', post, :confirm => 'Alerta! Esto no puede deshacerse. Seguro?', :method => :delete %></td>
   </tr>
 <% end %>
 

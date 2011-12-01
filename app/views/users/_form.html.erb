@@ -2,7 +2,6 @@
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,7 +11,7 @@
   <% end %>
  </br>
   <div class="field">
-    <%= f.label :username %><br />
+    <%= f.label :usuario %><br />
     <%= f.text_field :username %>
   </div>
   <div class="field">
@@ -29,21 +28,49 @@
     <%= f.number_field :rut %>
     
   </div>
-  <%if current_user.type=="Admin"%><br>
-  <%= f.label :tipo %><br />
-  <%@tipos =['Student', 'Teacher', 'Admin']%>
-  <%= f.select :type, @tipos %>
-
+  <div class="field">
+  
+<%if current_user.type=="Admin"%><br>
+	<%if @user.type =="Admin"%>
+	<%@tipos = ['Admin']%>
+	<%else%>
+	<%= f.label :tipo %><br />
+	<%@tipos =[nil, 'Student', 'Teacher', 'Admin']%>
+	<%= f.select :type, @tipos %>
+	
+  
+  <u>Simbolog&iacute;a</u><br>
+  <i>Teacher = Profesor <br>
+  Student = Alumno<br>
+  </i>
+<%end%>
+</div>
   <br>
+  
   <br> 
+  <%if @user.type =="Admin"%>
+  <%else%>
+<div class="field">
+<%= f.label :curso_id %><br />
+<%curso = Curso.find(:all, :conditions=>{:user_id=> nil})%>
+	<%if curso.count == 0 && @user.type =="Teacher"%>
+	<strong> No hay cursos disponibles para asignar directamente en este momento.</strong>
+	</div>
+	<%elsif @user.type =="Student"%>	 
+	<%= f.collection_select(:curso_id, Curso.all, :id, :name) %> </div>
+	<%else%>
+	<%= f.collection_select(:curso_id, curso, :id, :name) %> 
+	</div>
 
-	 <%= f.label :curso_id %><br />
-	 <%= f.collection_select(:curso_id, Curso.all, :id, :name) %> 
-	 <%end%>
-	 </br> </br>
+	<%end%>
+
+<%end%><%end%>
+	
+	</br> </br>
   
   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar"%>
   </div>
 <% end %>
+

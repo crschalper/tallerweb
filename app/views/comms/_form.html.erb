@@ -1,0 +1,54 @@
+<%= form_for(@comment, :url=> comentario_comm_path) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+
+<%if current_user.type=="Admin"%>
+<%= f.label :autor %><br />
+<%= f.collection_select(:user_id, User.all, :id, :name) %>
+<%else%>
+
+  <div class="field">
+<%= f.label :autor %><br />
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.text_field :user_id, :disabled => "disabled", :value => current_user.name %>
+  </div>
+<%end%>
+<%@comment.post_id = @post%>
+ 
+  <div class="field">
+    <%= f.label :contenido %><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :nota %><br />
+<%@notas =[1,2,3,4,5,6,7]%>
+<%= f.select :nota, @notas %>
+	  </div>
+  
+  <%if current_user.type =="Admin"%>
+  <div class="field">
+    <%= f.label :active %><br />
+    <%= f.check_box :active%>
+  </div>
+  <%end%>
+  
+  <div class="actions">
+    <%= f.submit :Comentar, :confirm=>'No es posible modificar este comentario en el futuro. Continuar? '%>
+  </div>
+<% end %>
+<%@comment.post_id = @post_id%>
+<%=@comment.post_id%>
+
+
+
+

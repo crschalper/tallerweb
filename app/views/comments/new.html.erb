@@ -14,10 +14,8 @@
 					<li  class="current_page_item first"><span><%= link_to "Comentarios", comments_path%> </span></li>
 					<%end%>
 					<%if current_user.type=="Teacher"%>
-					<%cursos = current_user.cursos %>
-					<%cursos.each do |curso| %>
+					<%curso = Curso.find(current_user.curso_id) %>
 					<li><%= link_to "Mi curso", curso%></li>
-					<%end%>
 					<%end%>
 					<%if current_user.type=="Student"%>
 					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
@@ -48,8 +46,18 @@
 
 <h2>Nuevo Comentario</h2>
 
+ <% if (!(@post.nil?))%>
+<%if current_user.curso_id == User.find(@post.user_id).curso_id || current_user.type=="Admin"%>
 <%= render 'form' %>
+<%else%>
+<br>
+<strong>No puedes comentar este post, ya que no es de tu curso.</strong>
+<br>
+<%end%>
+<%end%>
 
+<br>
+<%=link_to "Cancelar", post_path(@post)%>
 </div><!-- end #content -->
 	<div id="sidebar">
 			<ul>

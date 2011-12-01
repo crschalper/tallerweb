@@ -12,10 +12,8 @@
 					<li class="current_page_item first"><span><%= link_to "Comentarios", comments_path%> </span></li>
 					<%end%>
 					<%if current_user.type=="Teacher"%>
-					<%cursos = current_user.cursos %>
-					<%cursos.each do |curso| %>
+					<%curso = Curso.find(current_user.curso_id) %>
 					<li><%= link_to "Mi curso", curso%></li>
-					<%end%>
 					<%end%>
 					<%if current_user.type=="Student"%>
 					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
@@ -64,14 +62,9 @@
   <%= @comment.content %>
 </p>
 
-<p>
-  <b>Nota:</b>
-  <%= @comment.nota %>
-</p>
-
-
+<%if current_user.type=="Admin"%>
 <%= link_to 'Editar', edit_comment_path(@comment) %> 
-
+<%end%>
 </div><!-- end #content -->
 	<div id="sidebar">
 			<ul>

@@ -1,9 +1,11 @@
 class CursosController < ApplicationController
 	 before_filter :authenticate_user!
+	 helper_method :sort_column, :sort_direction
+
   # GET /cursos
   # GET /cursos.json
   def index
-    @cursos = Curso.all
+    @cursos = Curso.order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,10 +44,12 @@ class CursosController < ApplicationController
   # POST /cursos.json
   def create
     @curso = Curso.new(params[:curso])
-
     respond_to do |format|
       if @curso.save
-        format.html { redirect_to @curso, :notice => 'Curso was successfully created.' }
+    profesor = User.find(@curso.user_id)
+    profesor.curso_id = @curso.id
+    profesor.save
+        format.html { redirect_to @curso, :notice => 'Curso creado satisfactoriamente.' }
         format.json { render :json => @curso, :status => :created, :location => @curso }
       else
         format.html { render :action => "new" }
@@ -61,7 +65,7 @@ class CursosController < ApplicationController
 
     respond_to do |format|
       if @curso.update_attributes(params[:curso])
-        format.html { redirect_to @curso, :notice => 'Curso was successfully updated.' }
+        format.html { redirect_to @curso, :notice => 'Curso actualizado.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -80,5 +84,13 @@ class CursosController < ApplicationController
       format.html { redirect_to cursos_url }
       format.json { head :ok }
     end
+  end
+  
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

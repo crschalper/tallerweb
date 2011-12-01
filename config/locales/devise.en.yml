@@ -8,22 +8,22 @@ en:
       already_confirmed: "was already confirmed, please try signing in"
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
-
+        one: "1 error prohibio que se guardara:"
+        other: "%{count} errores prohibieron que se guardara:"
+      blank: "no puede estar en blanco"
   devise:
     failure:
-      already_authenticated: 'You are already signed in.'
-      unauthenticated: 'You need to sign in or sign up before continuing.'
+      already_authenticated: 'Ya estas ingresado.'
+      unauthenticated: 'Debes ingresar para poder continuar.'
       unconfirmed: 'You have to confirm your account before continuing.'
       locked: 'Your account is locked.'
-      invalid: 'Invalid email or password.'
+      invalid: 'Error con las llaves. Intente nuevamente'
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
     sessions:
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
+      signed_in: 'Has entrado satisfactoriamente.'
+      signed_out: 'Has salido satisfactoriamente.'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
@@ -34,10 +34,10 @@ en:
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: 'Your account was successfully confirmed. You are now signed in.'
     registrations:
-      signed_up: 'Welcome! You have signed up successfully.'
+      signed_up: 'Bienvenido! Has ingresado satisfactoriamente.'
       inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
-      updated: 'You updated your account successfully.'
-      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      updated: 'Tus datos han sido actualizados.'
+      destroyed: 'Tu cuenta ha sido borrada del sistema.'
       reasons:
         inactive: 'inactive'
         unconfirmed: 'unconfirmed'

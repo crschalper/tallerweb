@@ -1,5 +1,17 @@
 CHANGELOG
 
+7.11.2011 - Versión 1.0
+
+Cambios
+- Se sube la posibilidad de anidar comentarios.
+- Posibilidad de cambiar contraseña
+- Todo en castellano
+
+Por arreglar:
+- Subir varios archivos
+
+-------------------------------------
+
 7.11.2011 - Versión 0.11
 
 Cambios

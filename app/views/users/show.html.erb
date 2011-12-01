@@ -16,10 +16,8 @@
 					<li><%= link_to "Comentarios", comments_path%></li>
 					<%end%>
 					<%if current_user.type=="Teacher"%>
-					<%cursos = current_user.cursos %>
-					<%cursos.each do |curso| %>
+					<%curso = Curso.find(current_user.curso_id) %>
 					<li><%= link_to "Mi curso", curso%></li>
-					<%end%>
 					<%end%>
 					<%if current_user.type=="Student"%>
 					<%cursos = Curso.find(:all, :conditions=>{:id=>current_user.curso_id})%>
@@ -50,7 +48,7 @@
 	<div id="content">
 
 <p>
-  <b>Username:</b>
+  <b>Usuario:</b>
   <%= @user.username %>
 </p>
 
@@ -70,17 +68,22 @@
 </p>
 
 <%if @user.type=="Teacher"%>
+<%if !@user.curso_id.nil?%>
 <p>
-  <b>Cursos:</b><br>
-  <%cursos = @user.cursos %>
-  <%cursos.each do |curso| %>
+  <b>Curso:</b><br>
+  <%curso = Curso.find(@user.curso_id) %>
   <%=link_to curso.name, curso%>
-  <%end%>
 </p>
 <%end%>
+<%end%>
 
-<%if current_user.type=="Admin"%>
-<%= link_to 'Editar', edit_user_path(@user) %> 
+<%if current_user.type =="Admin"%>
+<%= link_to 'Editar', edit_user_path(@user) %> | 
+<%= link_to 'Cambiar Clave', passedit_path(@user)%>
+<%end%>
+<%if current_user.type =="Student"%>
+<br>
+[<i>Para cualquier problema en su perfil, hable con su profesor Jefe</i>]
 <%end%>
 
 </div><!-- end #content -->

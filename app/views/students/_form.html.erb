@@ -1,38 +1,49 @@
 <%= form_for(@student) do |f| %>
   <% if @student.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this user from being saved:</h2>
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% @student.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-
+ </br>
   <div class="field">
-    <%= f.label :username %><br />
+    <%= f.label :usuario %><br />
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :nombre %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :lastname %><br />
+    <%= f.label :apellido %><br />
     <%= f.text_field :lastname %>
   </div>
+  
   <div class="field">
     <%= f.label :rut %><br />
     <%= f.number_field :rut %>
+    
   </div>
-  <%if current_user.type=="Admin"%>
- <%= f.label :type %><br />
- <%= f.text_field :type %>
-  <%end%>
   
+  <%if current_user.type=="Admin"%><br>
+  <div class="field"> 
+  <%= f.label :tipo %><br />
+  <%@tipos =[nil, 'Student', 'Teacher', 'Admin']%>
+  <%= f.select :type, @tipos %>
+  </div>
+  <%end%>
+
+<div class="field">
+<%= f.label :curso_id %><br />
+<%= f.collection_select(:curso_id, Curso.all, :id, :name) %> 
+</div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar"%>
   </div>
 <% end %>
+

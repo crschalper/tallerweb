@@ -33,6 +33,10 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
+  
+  def passedit
+    @user = User.find(params[:id])
+  end
 
   # POST /users
   # POST /users.json
@@ -41,10 +45,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, :notice => 'User was successfully created.' }
+        format.html { redirect_to @user, :notice => 'Usuario creado satisfactoriamente.' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new"}
         format.json { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
@@ -54,14 +58,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
-    respond_to do |format|
+       respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, :notice => 'User was successfully updated.' }
+        format.html { redirect_to @user, :notice => 'Datos actualizados.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+        format.json { render :json => @user.errors, :status => :unprocessable_entity}
       end
     end
   end

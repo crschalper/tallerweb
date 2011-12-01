@@ -33,7 +33,7 @@
 
 	<div id="content">
 <p>
-  <b>Username:</b>
+  <b>Usuario:</b>
   <%= @student.username %>
 </p>
 
@@ -54,16 +54,16 @@
 
 <p>
   <b>Curso:</b>
-  <%if !@student.curso_id.blank?%>
+  <%if !@student.curso_id.nil?%>
   <%= Curso.find(@student.curso_id).name %>
   <%end%>
 </p>
 
 
-
-
-<%= link_to 'Edit', edit_user_path(@student) %> 
-
+<%if current_user.type =="Admin"%>
+<%= link_to 'Editar', edit_student_path(@user) %> | 
+<%= link_to 'Cambiar Clave', passedit_path(@user)%>
+<%end%>
 	</div><!-- end #content -->
 	
 
